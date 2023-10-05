@@ -21,17 +21,10 @@ export const mutations = {
 
 export const actions = {
     async login ({ commit }, payload) {
-        // ダミーリクエスト(1秒待機の後成功/失敗する)
-        const shouldSuccess = true
-        const request = new Promise((resolve, reject) =>
-            setTimeout(
-                () => (shouldSuccess ? resolve() : reject(Error('login failure'))),
-                1000
-            )
-        )
-        await request
+        await this.$axios.$post('/rcms-api/4/login', payload)
 
-        commit('setProfile', { profile: {} }) // ダミーのオブジェクトをstore.state.profileに適用
+        const profileRes = await this.$axios.$get('/rcms-api/4/profile')
+        commit('setProfile', { profile: profileRes })
         commit('updateLocalStorage', { authenticated: true })
     },
     async restoreLoginState ({ commit }) {
@@ -40,7 +33,8 @@ export const actions = {
         if (!authenticated) {
             throw new Error('need to login')
         }
-        commit('setProfile', { profile: {} }) // ダミーのオブジェクトをstore.
-        await null
+
+        const profileRes = await this.$axios.$get('/rcms-api/4/profile')
+        commit('setProfile', { profile: profileRes })
     }
 }
