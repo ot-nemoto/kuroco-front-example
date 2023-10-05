@@ -27,14 +27,31 @@ export const actions = {
         commit('setProfile', { profile: profileRes })
         commit('updateLocalStorage', { authenticated: true })
     },
-    async restoreLoginState ({ commit }) {
+    async logout ({ commit }) {
+        try {
+            await this.$axios.$post('/rcms-api/4/logout')
+        } catch {
+            /** No Process */
+            /** エラーが返却されてきた場合は、結果的にログアウトできているものとみなし、これを無視します。 */
+        }
+        commit('setProfile', { profile: null })
+        commit('updateLocalStorage', { authenticated: false })
+
+        this.$router.push('/login')
+    },
+    async restoreLoginState ({ commit, dispatch }) {
         const authenticated = JSON.parse(localStorage.getItem('authenticated'))
 
         if (!authenticated) {
+            await dispatch('logout')
             throw new Error('need to login')
         }
-
-        const profileRes = await this.$axios.$get('/rcms-api/4/profile')
-        commit('setProfile', { profile: profileRes })
+        try {
+            const profileRes = await this.$axios.$get('/rcms-api/4/profile')
+            commit('setProfile', { profile: profileRes })
+        } catch {
+            await dispatch('logout')
+            throw new Error('need to login')
+        }
     }
 }
