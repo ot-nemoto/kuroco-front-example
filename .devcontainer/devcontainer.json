@@ -21,7 +21,8 @@
 			"settings": {},
 			"extensions": [
 				"ms-azuretools.vscode-docker",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"vue.volar"
 			]
 		}
 	},
