@@ -11,6 +11,7 @@
 
   <script>
   export default {
+    middleware: 'auth',
     async asyncData({ $axios }) {
       return {
         response: await $axios.$get('/rcms-api/5/news'),
