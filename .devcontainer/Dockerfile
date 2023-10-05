@@ -1,4 +1,4 @@
-FROM node:18-slim
+FROM node:16-slim
 
 RUN apt update -y \
     && apt install -y git vim
