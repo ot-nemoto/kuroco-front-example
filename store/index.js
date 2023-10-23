@@ -27,7 +27,9 @@ export const actions = {
         commit('setProfile', { profile: profileRes })
         commit('updateLocalStorage', { authenticated: true })
 
-        window.location.href = process.env.KUROCO_AUTH_URL
+        console.log(process.env.KUROCO_AUTH_URL)
+
+        window.location.href = 'https://example-user-pool.auth.ap-northeast-1.amazoncognito.com/oauth2/authorize?client_id=6gedog8lk6lr7tn34p7nanf5ig&response_type=code&scope=email+openid+phone&redirect_uri=https:%2F%2Fwww.google.com%2F&identity_provider=kuroco'
     },
     async logout ({ commit }) {
         try {
