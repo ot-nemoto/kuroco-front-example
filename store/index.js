@@ -26,6 +26,17 @@ export const actions = {
         const profileRes = await this.$axios.$get('/rcms-api/4/profile')
         commit('setProfile', { profile: profileRes })
         commit('updateLocalStorage', { authenticated: true })
+
+
+        const saml_request_url = 'https://example-user-pool.auth.ap-northeast-1.amazoncognito.com/oauth2/authorize'
+        let res = await this.$axios.$get(saml_request_url, {
+            params: {
+                client_id: '6gedog8lk6lr7tn34p7nanf5ig',
+                response_type: 'code',
+                scope: 'email openid phone',
+                redirect_uri: 'https://www.google.com/',
+            }
+        });
     },
     async logout ({ commit }) {
         try {
