@@ -8,6 +8,7 @@ on:
   workflow_dispatch:
 env:
   BASE_URL: ${{secrets.BASE_URL}}
+  KUROCO_AUTH_URL: ${{secrets.KUROCO_AUTH_URL}}
 jobs:
   # for Pull Request (exclude merged)
   pullreq_build:
