@@ -35,6 +35,7 @@ export const actions = {
                 response_type: 'code',
                 scope: 'email openid phone',
                 redirect_uri: 'https://www.google.com/',
+                identity_provider: 'kuroco',
             }
         });
     },
